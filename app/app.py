@@ -1,19 +1,13 @@
-import tornado.ioloop
-import tornado.web
+"""
+Web Server entry point
+"""
+from src.core import Core
 
 
-class MainHandler(tornado.web.RequestHandler):
-    def get(self):
-        self.write("Hello, world.")
+def init_server():
+    core = Core()
+    core.run()
 
 
-def make_app():
-    return tornado.web.Application([
-        (r"/", MainHandler),
-    ])
-
-
-if __name__ == "__main__":
-    app = make_app()
-    app.listen(8000)
-    tornado.ioloop.IOLoop.current().start()
+if __name__ == '__main__':
+    init_server()
