@@ -1,0 +1,20 @@
+version: "3"
+services:
+  app:
+    image: python
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    links:
+      - db
+    ports:
+      - "8000:8000"
+  db:
+    image: mariadb
+    restart: always
+    ports:
+      - "13306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
