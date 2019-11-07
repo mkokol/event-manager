@@ -79,11 +79,11 @@ class Event:
         id (string) -- Event uuid
         device_type (enum[desktop, mobile, tablet]) -- Devise type
         category (int) -- Category id
-        client (int) -- Event uuid
-        client_group (int) -- Event uuid
-        valid (bool) -- Event uuid
-        value (float) -- Event uuid
-        timestamp (date-time) -- Event uuid
+        client (int) -- Client id
+        client_group (int) -- Client group id
+        valid (bool) -- is valid
+        value (float) -- Value
+        timestamp (date-time) -- Created at
     """
 
     def __init__(self):
@@ -156,4 +156,13 @@ class Event:
 
 
 class EventEntity(Event, Serializable):
-    pass
+    def __init__(self, data=None):
+        if data:
+            self.id = data['id']
+            self.device_type = data['device_type']
+            self.category = data['category']
+            self.client = data['client']
+            self.client_group = data['client_group']
+            self.valid = data['valid']
+            self.value = data['value']
+            self.timestamp = data['timestamp']

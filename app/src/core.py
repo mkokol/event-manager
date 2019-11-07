@@ -5,7 +5,7 @@ from tornado.ioloop import IOLoop
 from tornado.web import StaticFileHandler
 
 from src import url
-from src.request_handler import MainHandler, NotFoundHandler, EventHandler
+from src.request_handler import MainHandler, NotFoundHandler, EventHandler, AddEventHandler, ReportHandler
 
 
 class Core:
@@ -44,4 +44,6 @@ class Core:
             (url.FAVICON, StaticFileHandler, {'path': 'static/'}),
             (url.MAIN, MainHandler),
             (url.EVENT, EventHandler),
+            (url.ADD_EVENT, AddEventHandler),
+            (url.REPORT, ReportHandler),
         ]

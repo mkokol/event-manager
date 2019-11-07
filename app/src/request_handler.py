@@ -5,7 +5,7 @@ from tornado.web import RequestHandler
 
 from src import url
 from src.db_manager import DbEventManager
-from src.model import ErrorEntity
+from src.model import ErrorEntity, EventEntity
 
 swirl.add_global_tag(
     name='Main',
@@ -15,6 +15,11 @@ swirl.add_global_tag(
 swirl.add_global_tag(
     name='Event',
     description='Event managing functionality'
+)
+
+swirl.add_global_tag(
+    name='Report',
+    description='Report managing functionality'
 )
 
 
@@ -113,3 +118,46 @@ class EventHandler(BaseHandler):
             return
 
         await self.rise_error(400, 'Event do not exist')
+
+
+@swirl.restapi(url.ADD_EVENT)
+class AddEventHandler(BaseHandler):
+    async def post(self):
+        """Add new event to DB. Not Finished.
+
+            Tags:
+                Event
+
+            Request body:
+                body (Event) -- Booking response
+        """
+        event = EventEntity(
+            json.loads(self.request.body)
+        )
+
+        await self.send({
+            'TODO': 'Save event in DB',
+            'event_id': event.id
+        })
+
+
+@swirl.restapi(url.REPORT)
+class ReportHandler(BaseHandler):
+    async def get(self):
+        """Fetch aggregate report. Not Finished.
+
+            Tags:
+                Report
+
+            Query Params:
+                product_type (enum[desktop, mobile, tablet]) -- Required. Type of the offer
+                category (int) -- Category id
+                    default: 1    minimum: 1    maximum: 2147483648
+        """
+
+        product_type = self.get_argument('product_type')
+
+        await self.send({
+            'TODO': 'Implement query with params',
+            'product_type': product_type
+        })

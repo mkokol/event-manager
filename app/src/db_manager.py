@@ -18,13 +18,13 @@ class DbManager:
         if not self.__connection.is_connected():
             raise Exception('Connection problem')
 
-    def _run_select(self, query: str):
+    def _select(self, query: str):
         cursor = self.__connection.cursor()
         cursor.execute(query)
 
         return cursor.fetchall()
 
-    def _run_delete(self, query):
+    def _run(self, query):
         cursor = self.__connection.cursor()
         cursor.execute(query)
         self.__connection.commit()
@@ -34,7 +34,7 @@ class DbEventManager(DbManager):
     __table = 'events'
 
     def fetch(self, event_id):
-        records = self._run_select("SELECT * FROM {} WHERE id='{}'".format(
+        records = self._select("SELECT * FROM {} WHERE id='{}'".format(
             self.__table,
             event_id
         ))
@@ -56,7 +56,7 @@ class DbEventManager(DbManager):
         return None
 
     def delete(self, event_id):
-        self._run_delete("DELETE FROM {} WHERE id='{}'".format(
+        self._run("DELETE FROM {} WHERE id='{}'".format(
             self.__table,
             event_id
         ))
