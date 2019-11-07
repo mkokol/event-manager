@@ -5,12 +5,7 @@ from tornado.ioloop import IOLoop
 from tornado.web import StaticFileHandler
 
 from src import url
-from src.request_handler import MainHandler, NotFoundHandler
-
-swirl.add_global_tag(
-    name='Main',
-    description='Here we collect generic info about API'
-)
+from src.request_handler import MainHandler, NotFoundHandler, EventHandler
 
 
 class Core:
@@ -47,5 +42,6 @@ class Core:
     def get_urls_handler_mapping(cls):
         return [
             (url.FAVICON, StaticFileHandler, {'path': 'static/'}),
-            (url.MAIN, MainHandler)
+            (url.MAIN, MainHandler),
+            (url.EVENT, EventHandler),
         ]
