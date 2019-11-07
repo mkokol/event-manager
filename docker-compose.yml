@@ -9,12 +9,16 @@ services:
       - db
     ports:
       - "8000:8000"
+    stdin_open: true
+    tty: true
+    command: ["python", "app.py"]
+
   db:
     image: mariadb
     restart: always
     ports:
       - "13306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=root
+      MYSQL_ROOT_PASSWORD: root
     volumes:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
